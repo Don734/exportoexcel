@@ -31,8 +31,46 @@ class TableData {
 document.addEventListener('DOMContentLoaded', Init());
 
 function Init() {
+    let span = document.querySelectorAll('span');
+    let array = Array.from(span);
+    let newArray = sliceIntoChunks(array, 18)
+    let newTable = document.createElement('table');
+
+    document.body.appendChild(newTable);
+    
+    newArray.forEach((trElem, key) => {
+        if (key != 33) {
+            let tr = document.createElement('tr')
+            newTable.appendChild(tr);
+            
+            trElem.forEach((tdElem) => {
+                let td = document.createElement('td');
+                tr.appendChild(td);
+                console.log(td);
+                td.innerText = tdElem.innerText;
+            })
+        }
+    })
+
+    document.querySelectorAll('table td').forEach((elem) => {
+        if (elem.innerText == 0 && elem.innerText == '') {
+            elem.removeChild(elem);
+        }
+    })
+
+    console.log(newArray);
+
     document.querySelector('.toExcel').addEventListener('click', () => {
         let table = new TableData('tableData');
         table.exportToExcel();
     })
+}
+
+function sliceIntoChunks(arr, chunkSize) {
+    const res = [];
+    for (let i = 0; i < arr.length; i+=chunkSize) {
+        const chunk = arr.slice(i, i + chunkSize);
+        res.push(chunk);
+    }
+    return res;
 }
