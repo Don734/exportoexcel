@@ -37,33 +37,35 @@ function Init() {
     let newTable = document.createElement('table');
 
     document.body.appendChild(newTable);
+    newTable.setAttribute('id', 'tableData');
     
     newArray.forEach((trElem, key) => {
-        if (key != 33) {
-            let tr = document.createElement('tr')
+        let tr = document.createElement('tr')
             newTable.appendChild(tr);
             
-            trElem.forEach((tdElem) => {
-                let td = document.createElement('td');
-                tr.appendChild(td);
-                console.log(td);
-                td.innerText = tdElem.innerText;
-            })
-        }
+        trElem.forEach((tdElem) => {
+            let td = document.createElement('td');
+            tr.appendChild(td);
+            console.log('test');
+            td.innerText = tdElem.innerText;
+        })
     })
 
-    document.querySelectorAll('table td').forEach((elem) => {
-        if (elem.innerText == 0 && elem.innerText == '') {
-            elem.removeChild(elem);
-        }
-    })
+    // document.querySelectorAll('table td').forEach((elem) => {
+    //     if (elem.innerText == 0) {
+    //         elem.parentNode.removeChild(elem);
+    //     }
+    // })
 
     console.log(newArray);
 
-    document.querySelector('.toExcel').addEventListener('click', () => {
-        let table = new TableData('tableData');
-        table.exportToExcel();
-    })
+    let table = new TableData('tableData');
+    table.exportToExcel();
+
+    // document.querySelector('.toExcel').addEventListener('click', () => {
+    //     let table = new TableData('tableData');
+    //     table.exportToExcel();
+    // })
 }
 
 function sliceIntoChunks(arr, chunkSize) {
